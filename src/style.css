@@ -1,0 +1,21 @@
+.body_login {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.589);
+  color: white;
+}
+.swal2-container {
+  z-index: 20000 !important;
+}
+.swal2-confirm {
+  background-color:#43A047; /* ใช้ primary ของ Vuetify */
+  color: white !important; /* เปลี่ยนสีฟ้อนให้เป็นสีขาว */
+}
+
+/* ปรับสีปุ่ม Cancel (ยกเลิก) ถ้ามี */
+.swal2-cancel {
+  background-color: #E53935 !important; /* สีเทา */
+  color: white !important;
+}
