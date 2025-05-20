@@ -4,13 +4,13 @@
             <!-- //NOTE - Student Details -->
             <v-sheet width="65%" height="100%">
                 <v-card width="100%">
-                    <v-toolbar density="compact" color="#005BB9"
+                    <v-toolbar density="compact" color="#FE8329"
                         style="border-top-left-radius: 4px;border-top-right-radius: 4px;">
 
                         <h2 class="ml-5 d-flex align-center justify-start">
                             <v-icon icon="mdi-calendar-check" size="small" class="mr-2"
                                 style="color: #FFF200;"></v-icon>
-                            ลงเวลาเข้าเรียน
+                            ลงทะเบียนเข้า - ออก
                         </h2>
                         <v-spacer></v-spacer>
 
@@ -21,9 +21,8 @@
                     <v-row class="text-center pa-5 d-flex align-center justify-center">
                         <v-col cols="5" class="pr-5" style="justify-items: end;">
                             <div>
-                                <img class="ImgBorder"
-                                    :src="this.studentData.picture || '/Chakkam_Khanathon_School_logo.png'" alt="blank"
-                                    width="250px" height="350px">
+                                <img class="ImgBorder" :src="this.studentData.picture || '/profile_mockup.jpg'"
+                                    alt="blank" width="250px" height="350px">
                             </div>
                         </v-col>
                         <v-col cols="1" class="d-flex align-center justify-center">
@@ -33,8 +32,7 @@
                         </v-col>
                         <v-col cols="5" class="pl-5" style="justify-items: start;">
                             <div>
-                                <img class="ImgBorder"
-                                    :src="this.studentData.snapPicture || '/Chakkam_Khanathon_School_logo.png'"
+                                <img class="ImgBorder" :src="this.studentData.snapPicture || '/profile_mockup.jpg'"
                                     alt="blank" width="250px" height="350px">
                             </div>
                         </v-col>
@@ -94,7 +92,7 @@
                                 </v-col> -->
 
                                 <v-col cols="12" class="d-flex align-center justify-end pa-0">
-                                    <v-card variant="flat" width="100%" style="background-color: #005BB9;">
+                                    <v-card variant="flat" width="100%" style="background-color: #FE8329;">
                                         <h1 style="font-size: 4.2rem;color: white;"
                                             class="d-flex align-center justify-center py-0">
                                             <v-icon icon="mdi-clock" size="small" class="mr-2"
@@ -111,7 +109,7 @@
 
             <!-- //NOTE - Students List -->
             <v-sheet width="35%" height="100%" class="ml-5">
-                <v-card width="100%" color="#005BB9">
+                <v-card width="100%" color="#FE8329">
                     <!-- <v-toolbar color="#005BB9">
                         <v-toolbar-title>
                             <h2 class="d-flex align-center justify-start">

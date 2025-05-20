@@ -1,14 +1,14 @@
 <template>
     <div class="body_login">
         <v-card max-width="400px" width="100%" rounded="md" class="ma-5">
-            <v-card style="background-color: #005BB9; border-radius: 0px;"
+            <v-card style="background-color: #7D4115; border-radius: 0px;"
                 class="pa-5 d-flex align-center justify-center">
                 <div>
-                    <img src="../assets/Chakkam_Khanathon_School_logo.png" alt="blank" width="100px">
+                    <img src="../assets/Logo_Maerim_Resize.png" alt="blank" width="100px">
                 </div>
                 <v-col>
                     <p style="color: white; font-size: 30px;">ระบบจัดการข้อมูล</p>
-                    <p style="color: white; font-size: 16px;">โรงเรียนจักรคำคณาทร จังหวัดลำพูน</p>
+                    <p style="color: white; font-size: 18px;">โรงเรียนแม่ริมวิทยาคม</p>
                 </v-col>
             </v-card>
             <v-form fast-fail class="pa-5" @submit.prevent="submit">

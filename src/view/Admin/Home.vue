@@ -1,7 +1,7 @@
 <template>
     <div style="height: 80vh; align-content: center;" class="text-center pa-5">
         <div class="pb-3" style="justify-items: center;">
-            <v-toolbar color="#005BB9" style="width: 90%;border-radius: 5px;">
+            <v-toolbar color="#FE8329" style="width: 90%;border-radius: 5px;">
                 <v-toolbar-title>
                     <h1 style="color:white;" class="d-flex align-center justify-center">
                         จัดการมอนิเตอร์
