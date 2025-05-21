@@ -7,7 +7,7 @@
             <v-app-bar-title>
                 <v-row class=" ml-4">
                     <v-col cols="9">
-                        <p style="font-size: 18px;">โรงเรียนแม่ริมวิทยาคม</p>
+                        <p style="font-size: 23px;">โรงเรียนแม่ริมวิทยาคม</p>
                     </v-col>
                 </v-row>
             </v-app-bar-title>

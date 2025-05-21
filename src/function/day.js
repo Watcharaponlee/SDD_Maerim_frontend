@@ -17,8 +17,13 @@ function formatitemdevice(date) {
 function timeFormat(date) {
   return dayjs(date).format("HH");
 }
+
 function timeminuteFormat(date) {
   return dayjs(date).format("mm");
+}
+
+function FormatTime(date) {
+  return dayjs(date).format("HH:mm");
 }
 
 function datetimeFormat(date) {
@@ -193,4 +198,5 @@ export {
   dateFormatDayandTime,
   dateFormatWithFixedTime,
   dateTimeFormatValue,
+  FormatTime
 };

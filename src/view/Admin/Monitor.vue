@@ -14,15 +14,15 @@
                         </h2>
                         <v-spacer></v-spacer>
 
-                        <h2 class="text-white mr-5">
+                        <!-- <h2 class="text-white mr-5">
                             {{ this.deviceInfo.location }}
-                        </h2>
+                        </h2> -->
                     </v-toolbar>
                     <v-row class="text-center pa-5 d-flex align-center justify-center">
                         <v-col cols="5" class="pr-5" style="justify-items: end;">
                             <div>
-                                <img class="ImgBorder" :src="this.studentData.picture || '/profile_mockup.jpg'"
-                                    alt="blank" width="250px" height="350px">
+                                <img class="ImgBorder" :src="studentData.img_name || '/profile_mockup.jpg'" alt="blank"
+                                    width="270px" height="350px">
                             </div>
                         </v-col>
                         <v-col cols="1" class="d-flex align-center justify-center">
@@ -32,8 +32,9 @@
                         </v-col>
                         <v-col cols="5" class="pl-5" style="justify-items: start;">
                             <div>
-                                <img class="ImgBorder" :src="this.studentData.snapPicture || '/profile_mockup.jpg'"
-                                    alt="blank" width="250px" height="350px">
+                                <img class="ImgBorder"
+                                    :src="studentData.img_snap ? baseUrl + studentData.img_snap : '/profile_mockup.jpg'"
+                                    alt="blank" width="270px" height="350px">
                             </div>
                         </v-col>
                         <v-col cols="12" class="text-center">
@@ -53,7 +54,7 @@
                                     <h1 style="font-size: 2.4rem;">
                                         <v-icon style="color: #005BB9;" icon="mdi-card-account-details"
                                             size="small"></v-icon><br>
-                                        {{ studentData.id }}
+                                        {{ studentData.p_id }}
                                     </h1>
                                 </v-col>
                                 <v-col cols="6" class="py-0">
@@ -75,7 +76,7 @@
                                     <h1 style="font-size: 2.4rem;">
                                         <v-icon style="color: #43A047;" icon="mdi-clock-check"
                                             size="small"></v-icon><br>
-                                        {{ extractTime(studentData.timeStamp) }}
+                                        {{ extractTime(studentData.time) }}
                                     </h1>
                                 </v-col>
                             </v-row>
@@ -126,20 +127,19 @@
                                 <v-card class="pa-5 pb-3" variant="flat" color="white">
                                     <v-row class="d-flex justify-start align-center">
                                         <v-col cols="3" class="pa-0 text-end">
-                                            <img class="ImgBorder"
-                                                :src="student.picture || '/Chakkam_Khanathon_School_logo.png'" alt="Img"
-                                                width="100px" height="114px">
+                                            <img class="ImgBorder" :src="student.img_name || '/profile_mockup.jpg'"
+                                                alt="Img" width="100px" height="110px">
                                         </v-col>
                                         <v-col cols="4" class="pa-0">
                                             <img class="ImgBorder"
-                                                :src="student.snapPicture || '/Chakkam_Khanathon_School_logo.png'"
-                                                alt="img" width="100px" height="114px">
+                                                :src="baseUrl + student.img_snap || '/profile_mockup.jpg'" alt="img"
+                                                width="100px" height="114px">
                                         </v-col>
                                         <v-col cols="5" class="text-start pa-0">
                                             <h3>
                                                 <v-icon style="color: #005BB9;" icon="mdi-card-account-details"
                                                     size="small" class="mr-3"></v-icon>
-                                                {{ student.id }}
+                                                {{ student.p_id }}
                                             </h3>
                                             <h3>
                                                 <v-row class="align-center">
@@ -163,7 +163,7 @@
                                             <h3>
                                                 <v-icon style="color: #43A047;" icon="mdi-clock-check" size="small"
                                                     class="mr-3"></v-icon>
-                                                {{ extractTime(student.timeStamp) }}
+                                                {{ extractTime(student.time) }}
                                             </h3>
                                         </v-col>
                                     </v-row>
@@ -223,9 +223,11 @@ import { formatitemdevice, dateTimeFormatValue } from '../../function/day';
 import moment from "moment-timezone"
 export default {
     setup() {
+        const baseUrl = import.meta.env.VITE_APP_BASE_URL;
         return {
             formatitemdevice,
-            dateTimeFormatValue
+            dateTimeFormatValue,
+            baseUrl,
         };
     },
     data: () => ({
@@ -319,25 +321,57 @@ export default {
 
             this.socket.onmessage = (event) => {
                 const socketData = JSON.parse(event.data);
-                this.serverTime = socketData.servertime;
 
                 if (socketData.sn === this.deviceInfo.serialNumber) {
-                    this.studentData = socketData.data;
+                    if (socketData.p_id !== 'STRANGERBABY') {
+                        // // เก็บ studentData ล่าสุด
+                        // const prevStudentData = this.studentData; // backup อันก่อนหน้า
+                        // this.studentData = socketData;
 
-                    if (this.data.length >= 5) {
-                        this.data.pop();
+                        // // ถ้ามี studentData ก่อนหน้า ค่อยเก็บลง this.data
+                        // if (prevStudentData) {
+                        //     if (this.data.length >= 5) {
+                        //         this.data.pop();
+                        //     }
+
+                        //     this.studentCounter++;
+                        //     const newData = {
+                        //         ...prevStudentData,
+                        //         counter: this.studentCounter,
+                        //     };
+                        //     this.data.unshift(newData);
+                        // }
+                        // console.log('Student : ', socketData)
+                        // console.log('Data : ', this.data)
+
+
+                        if (socketData.p_id !== 'STRANGERBABY') {
+                            // ถ้ามี studentData อยู่แล้ว แสดงว่าอันนี้ไม่ใช่ข้อมูลแรก
+                            if (this.studentData) {
+                                this.studentCounter++;
+
+                                const newData = {
+                                    ...this.studentData,
+                                    counter: this.studentCounter,
+                                };
+
+                                if (this.data.length >= 5) {
+                                    this.data.pop();
+                                }
+
+                                this.data.unshift(newData);
+                            }
+
+                            // เก็บข้อมูลล่าสุดลง studentData
+                            this.studentData = socketData;
+
+                            console.log('studentData :', this.studentData);
+                            console.log(this.data);
+                        }
+
+                    } else {
+                        console.log('Stranger : ', socketData)
                     }
-
-                    this.studentCounter++;
-                    const newData = {
-                        ...socketData.data,
-                        counter: this.studentCounter,
-                    };
-                    this.data.unshift(newData);
-
-                    console.log(this.data);
-                } else {
-                    console.log(socketData)
                 }
             };
 
@@ -385,12 +419,16 @@ export default {
         //     }
         // },
         extractTime(dateTimeString) {
-            if (dateTimeString && dateTimeString.includes(' ')) {
-                const time = dateTimeString.split(' ')[1]; // ได้ hh:mm:ss
-                const [hour, minute] = time.split(':'); // แยก ชั่วโมง กับ นาที
-                return `${hour}:${minute}`; // คืนค่าเฉพาะ ชั่วโมง:นาที
-            }
-            return null;
+            if (!dateTimeString) return null;
+
+            const date = new Date(dateTimeString);
+
+            // ตรวจสอบว่า date ถูกต้องหรือไม่
+            if (isNaN(date.getTime())) return null;
+
+            const hour = date.getHours().toString().padStart(2, '0');
+            const minute = date.getMinutes().toString().padStart(2, '0');
+            return `${hour}:${minute}`;
         },
         cutPrefixName(name) {
             if (name) {
