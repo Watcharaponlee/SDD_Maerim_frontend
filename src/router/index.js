@@ -6,11 +6,12 @@ import AdminLayout from "../layout/AdminLayout.vue";
 import MonitorLayout from "../layout/MonitorLayout.vue";
 import { UserService } from "../api/user";
 import store from "../store";
+import MonitorCR from "../view/Admin/MonitorCR.vue";
 
 const routes = [
   {
     path: "/",
-    redirect: "/monitor/signin",
+    redirect: "/monitor",
   },
   {
     path: "/monitor/signin",
@@ -40,11 +41,18 @@ const routes = [
       },
     ],
   },
-  // {
-  //   path: "/manageadmin",
-  //   name: "ManageAdmin",
-  //   component: ManageAdmin,
-  // },
+  {
+    path: "/monitorCR",
+    name: "MonitorLayout",
+    component: MonitorLayout,
+    children: [
+      {
+        path: "",
+        name: "MonitorCR",
+        component: MonitorCR,
+      },
+    ],
+  },
 ];
 
 const router = createRouter({
