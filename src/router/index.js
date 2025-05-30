@@ -11,7 +11,7 @@ import MonitorCR from "../view/Admin/MonitorCR.vue";
 const routes = [
   {
     path: "/",
-    redirect: "/monitor",
+    redirect: "/monitorCR",
   },
   {
     path: "/monitor/signin",

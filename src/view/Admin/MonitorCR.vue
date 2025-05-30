@@ -16,7 +16,7 @@
                     </p>
                 </v-toolbar>
                 <v-row class="justify-space-between pa-3">
-                    <v-col cols="4" v-for="stu in studentData" :key="stu._id">
+                    <v-col cols="4" class="pa-5" v-for="stu in studentData" :key="stu._id">
                         <v-row class="pb-2">
                             <v-col>
                                 <img :src="stu.img_name || '/profile_mockup.jpg'" alt="img" class="ImgBorder">
@@ -26,43 +26,48 @@
                                     class="ImgBorder">
                             </v-col>
                         </v-row>
-                        <v-card variant="flat" class="card-second-shadow">
-                            <h3 class="text-center" style="background-color: #FE8329;color: white;">ข้อมูลนักเรียน
-                            </h3>
-                            <div class="pa-3">
-                                <v-row class="align-center row-border">
-                                    <v-col cols="3" class="text-center pa-0">
-                                        <v-icon style="color: #005BB9; font-size: 35px;"
-                                            icon="mdi-card-account-details" />
-                                    </v-col>
-                                    <v-col cols="9">
-                                        <p class="FontDetail text-center">{{ stu.p_id || '-' }}</p>
-                                    </v-col>
-                                </v-row>
-                                <v-row class="align-center row-border">
-                                    <v-col cols="3" class="text-center pa-0">
-                                        <v-icon style="color: #005BB9; font-size: 35px;" icon="mdi-account" />
-                                    </v-col>
-                                    <v-col cols="9">
-                                        <p class="text-center FontDetail">{{ cutPrefixName(stu.name) || '-' }}</p>
-                                    </v-col>
-                                </v-row>
-                                <v-row class="align-center">
-                                    <v-col cols="3" class="text-center pa-0">
-                                        <v-icon style="color: #43A047;font-size: 35px;" icon="mdi-clock-check" />
-                                    </v-col>
-                                    <v-col cols="9">
-                                        <p class="text-center FontDetail">{{ extractTime(stu.time) || '-' }}</p>
-                                    </v-col>
-                                </v-row>
-                            </div>
-                        </v-card>
+
+                        <div class="d-flex align-center justify-center">
+                            <v-card variant="flat" class="card-second-shadow" style="width: 80%;">
+                                <h2 class="text-center pa-1" style="background-color: #FE8329;color: white;">
+                                    ข้อมูลนักเรียน
+                                </h2>
+                                <div class="pa-3">
+                                    <v-row class="align-center row-border">
+                                        <v-col cols="3" class="text-center pa-0">
+                                            <v-icon style="color: #005BB9; font-size: 35px;"
+                                                icon="mdi-card-account-details" />
+                                        </v-col>
+                                        <v-col cols="9" class="pa-2">
+                                            <p class="FontDetail text-center">{{ stu.p_id || '-' }}</p>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row class="align-center row-border">
+                                        <v-col cols="3" class="text-center pa-0">
+                                            <v-icon style="color: #005BB9; font-size: 35px;" icon="mdi-account" />
+                                        </v-col>
+                                        <v-col cols="9" class="pa-2">
+                                            <p class="text-center FontDetail">{{ cutPrefixName(stu.name) || '-' }}</p>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row class="align-center">
+                                        <v-col cols="3" class="text-center pa-0">
+                                            <v-icon style="color: #43A047;font-size: 35px;" icon="mdi-clock-check" />
+                                        </v-col>
+                                        <v-col cols="9" class="pa-2">
+                                            <p class="text-center FontDetail">{{ extractTime(stu.time) || '-' }}</p>
+                                        </v-col>
+                                    </v-row>
+                                </div>
+                            </v-card>
+                        </div>
+
                     </v-col>
                 </v-row>
             </v-card>
         </div>
 
-        <div class="mt-2">
+        <div class="mt-5">
             <v-card variant="flat" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 5px 29px 0px;">
                 <v-toolbar density="compact" color="white"
                     style="border-top-left-radius: 4px;border-top-right-radius: 4px;">
@@ -75,14 +80,37 @@
                 <v-row class="text-center pa-3">
                     <v-col v-for="student in data" :key="student._id">
                         <img :src="student.img_name || '/profile_mockup.jpg'" alt="img" class="Imglist">
-                        <p class="d-flex align-center justify-center FontSub">
-                            <v-icon style="color: #005BB9; " icon="mdi-card-account-details" class="mr-3" />
-                            {{ student.p_id }}
-                        </p>
-                        <p class="d-flex align-center justify-center FontSub">
+
+                        <v-row class="align-center pa-2 pt-0">
+                            <v-col cols="4" class="text-center pa-0">
+                                <v-icon style="color: #005BB9; " icon="mdi-card-account-details" />
+                            </v-col>
+                            <v-col cols="8" class="pa-0 pt-2">
+                                <p class="d-flex align-center justify-center FontSub">
+                                    {{ student.p_id }}
+                                </p>
+                            </v-col>
+
+                            <v-col cols="4" class="text-center pa-0">
+                                <v-icon style="color: #43A047;" icon="mdi-clock-check" />
+                            </v-col>
+                            <v-col cols="8" class="pa-0">
+                                <p class="d-flex align-center justify-center FontSub">
+                                    {{ extractTime(student.time) }}
+                                </p>
+                            </v-col>
+                        </v-row>
+
+
+                        <!-- <p class="d-flex align-center justify-center FontSub">
+                            <v-icon style="color: #005BB9;" icon="mdi-account" class="mr-3" />
+                            {{ cutPrefixName(student.name) }}
+
+                        </p> -->
+                        <!-- <p class="d-flex align-center justify-center FontSub">
                             <v-icon style="color: #43A047;" icon="mdi-clock-check" class="mr-3" />
                             {{ extractTime(student.time) }}
-                        </p>
+                        </p> -->
                     </v-col>
                 </v-row>
             </v-card>
@@ -393,23 +421,25 @@ export default {
     /* padding: 10px; */
     border-radius: 5px;
     width: 100%;
-    height: 300px;
+    height: 350px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
 }
 
 .Imglist {
     border-radius: 5px;
     width: 120px;
-    height: 130px;
+    height: 150px;
     margin-bottom: 5px;
 }
 
 .FontDetail {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 600;
 }
 
 .FontSub {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 500;
 }
 
@@ -424,7 +454,7 @@ export default {
 }
 
 .card-second-shadow {
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 2px 24px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .row-border {

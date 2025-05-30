@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy:production" : "scp -r dist/* solutiondd@192.168.123.29:/var/www/monitor"
+    "deploy:production" : "scp -r dist/* solutiondd@10.42.0.1:/var/www/maerimschool"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
