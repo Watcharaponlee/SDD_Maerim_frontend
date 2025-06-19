@@ -251,6 +251,8 @@ export default {
         this.setupDataClearTimer();
 
         window.addEventListener('beforeunload', this.disconnectWebSocket);
+        window.addEventListener('online', this.handleOnline);
+        window.addEventListener('offline', this.handleOffline);
     },
     beforeUnmount() {
         this.isComponentAlive = false;
@@ -269,6 +271,12 @@ export default {
         if (this.clearInterval) {
             clearInterval(this.clearInterval);
             this.clearInterval = null;
+        }
+
+        window.removeEventListener('online', this.handleOnline);
+        window.removeEventListener('offline', this.handleOffline);
+        if (this.socket) {
+            this.socket.close();
         }
     },
     methods: {
@@ -291,6 +299,24 @@ export default {
                 return `${protocol}://${hostname}:3050/socket`;
             }
         },
+
+        // const reconnectWebSocket = () => {
+        //     console.log('กำลังเชื่อมต่ออีกครั้ง กรุณารอสักครู่...');
+        //     if (navigator.onLine) {
+        //         connectWebSocket();
+        //     } else {
+        //         console.log('ไม่มีการเชื่อมต่ออินเทอร์เน็ต, กรุณาตรวจสอบอินเตอร์เน็ตของท่าน...');
+        //     }
+        // }
+
+        // window.addEventListener('online', () => {
+        //     reconnectWebSocket();
+        // });
+
+        // window.addEventListener('offline', () => {
+        //     console.log('สูญเสียการเชื่อมต่อ');
+        // });
+
         connectWebSocket() {
             const socketUrl = this.getSocketUrl();
             this.socket = new WebSocket(socketUrl);
@@ -338,6 +364,24 @@ export default {
                         this.connectWebSocket();
                     }, 3000);
                 }
+            }
+        },
+        reconnectWebSocket() {
+            console.log('กำลังเชื่อมต่ออีกครั้ง กรุณารอสักครู่...');
+            if (navigator.onLine) {
+                this.connectWebSocket();
+            } else {
+                console.log('ไม่มีการเชื่อมต่ออินเทอร์เน็ต');
+            }
+        },
+        handleOnline() {
+            console.log('กลับมาออนไลน์แล้ว');
+            this.reconnectWebSocket();
+        },
+        handleOffline() {
+            console.log('สูญเสียการเชื่อมต่ออินเทอร์เน็ต');
+            if (this.socket && this.socket.readyState !== WebSocket.CLOSED) {
+                this.socket.close();
             }
         },
         setupDataClearTimer() {
