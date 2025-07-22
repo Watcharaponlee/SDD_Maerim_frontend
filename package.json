@@ -1,13 +1,13 @@
 {
   "name": "sdd-chakkham-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy:production" : "scp -r dist/* solutiondd@10.42.0.1:/var/www/maerimschool"
+    "deploy:production" : "scp -r dist/* solutiondd@192.168.101.100:/var/www/maerimschool"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",

@@ -387,27 +387,47 @@ export default {
         setupDataClearTimer() {
             this.clearInterval = setInterval(() => {
                 const now = new Date();
-                const hour = now.getHours();
-                const minute = now.getMinutes();
+                const currentTime = now.getTime(); // timestamp
 
-                console.log(`Checking time: ${hour}:${minute < 10 ? '0' + minute : minute}`);
+                const clearHours = [9, 19]; // 09:00 และ 19:00
+                const clearWindow = 5 * 60 * 1000; // 5 นาที เป็น ms
 
-                const isClearTime = (hour === 9 || hour === 19) && minute === 0;
+                for (const hour of clearHours) {
+                    const clearTime = new Date(now);
+                    clearTime.setHours(hour, 0, 0, 0); // set เป็น hh:00:00
 
-                if (isClearTime && this.lastClearedHour !== hour) {
-                    console.log(`🧹 Clearing data at ${hour}:00`);
-                    this.data = [];
-                    this.studentData.picture = null;
-                    this.studentData.snapPicture = null;
-                    this.lastClearedHour = hour;
+                    const clearTimestamp = clearTime.getTime();
+
+                    // ตรวจสอบว่าอยู่ในช่วงย้อนหลังไม่เกิน 5 นาที และยังไม่เคลียร์รอบนี้
+                    const shouldClear =
+                        currentTime >= clearTimestamp &&
+                        currentTime <= clearTimestamp + clearWindow &&
+                        this.lastClearedAt !== clearTimestamp;
+
+                    if (shouldClear) {
+                        console.log(`🧹 Auto-clearing at ${hour}:00`);
+                        this.data = [];
+                        this.studentData.picture = null;
+                        this.studentData.snapPicture = null;
+                        this.lastClearedAt = clearTimestamp;
+                    }
                 }
 
-                if (minute > 0 && this.lastClearedHour === hour) {
-                    this.lastClearedHour = null;
+                // ถ้าเลย clear window แล้ว → reset เพื่อให้เคลียร์ได้รอบถัดไป
+                if (this.lastClearedAt) {
+                    const allWindowsPassed = clearHours.every(hour => {
+                        const clearTime = new Date(now);
+                        clearTime.setHours(hour, 0, 0, 0);
+                        const clearTimestamp = clearTime.getTime();
+                        return currentTime > clearTimestamp + clearWindow;
+                    });
+                    if (allWindowsPassed) {
+                        this.lastClearedAt = null;
+                    }
                 }
-            }, 60000); // ทำงานทุก 1 นาที
+            }, 10000); // เช็คทุก 10 วินาที
         },
-        // beforeDestroy() {
+
         //     if (this.socket) {
         //         this.socket.close();
         //     }
