@@ -571,6 +571,7 @@ export default {
     border-radius: 5px;
     height: 132px;
     margin-bottom: 5px;
+    width: 50%;
 }
 
 .FontDetail {
