@@ -1,120 +1,163 @@
 <template>
     <div class="pa-3">
-        <div>
-            <v-card variant="flat" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 5px 29px 0px;">
-                <v-toolbar density="compact" color="white"
-                    style="border-top-left-radius: 4px;border-top-right-radius: 4px;">
-                    <h2 class="ml-5 d-flex align-center justify-start" style="color: #FE8329;">
-                        <v-icon icon="mdi-calendar-check" size="small" class="mr-2" style="color: #FE8329;"></v-icon>
-                        ลงทะเบียนเข้า - ออก
-                    </h2>
-                    <v-spacer></v-spacer>
-                    <p style="color: black;font-weight: 600;font-size: 25px;"
-                        class="d-flex align-center justify-center pr-5">
-                        <v-icon icon="mdi-clock" size="small" class="mr-2" color="primary"></v-icon>
-                        {{ currentTime }}
-                    </p>
-                </v-toolbar>
-                <v-row class="justify-space-between pa-3">
-                    <v-col cols="4" class="pa-5" v-for="stu in studentData" :key="stu._id">
-                        <v-row class="pb-2">
-                            <v-col>
-                                <img :src="stu.img_name || '/profile_mockup.jpg'" alt="img" class="ImgBorder">
-                            </v-col>
-                            <v-col>
-                                <img :src="stu.img_snap ? baseUrl + stu.img_snap : '/profile_mockup.jpg'" alt="Img"
-                                    class="ImgBorder">
-                            </v-col>
-                        </v-row>
+        <v-row>
+            <v-col cols="10" class="pa-2">
+                <div>
+                    <v-card variant="flat" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 5px 29px 0px;">
+                        <v-toolbar density="compact" color="white"
+                            style="border-top-left-radius: 4px;border-top-right-radius: 4px;">
+                            <h2 class="ml-5 d-flex align-center justify-start" style="color: #FE8329;">
+                                <v-icon icon="mdi-calendar-check" size="small" class="mr-2"
+                                    style="color: #FE8329;"></v-icon>
+                                ลงทะเบียนเข้า - ออก
+                            </h2>
+                            <v-spacer></v-spacer>
+                            <p style="color: black;font-weight: 600;font-size: 25px;"
+                                class="d-flex align-center justify-center pr-5">
+                                <v-icon icon="mdi-clock" size="small" class="mr-2" color="primary"></v-icon>
+                                {{ currentTime }}
+                            </p>
+                        </v-toolbar>
+                        <v-row class="justify-space-between pa-3">
+                            <v-col cols="6" class="pa-5" v-for="stu in studentData" :key="stu._id">
+                                <v-row class="pb-2">
+                                    <v-col>
+                                        <img :src="stu.img_name || '/profile_mockup.jpg'" alt="img" class="ImgBorder">
+                                    </v-col>
+                                    <v-col>
+                                        <img :src="stu.img_snap ? baseUrl + stu.img_snap : '/profile_mockup.jpg'"
+                                            alt="Img" class="ImgBorder">
+                                    </v-col>
+                                </v-row>
 
-                        <div class="d-flex align-center justify-center">
-                            <v-card variant="flat" class="card-second-shadow" style="width: 80%;">
-                                <h2 class="text-center pa-1" style="background-color: #FE8329;color: white;">
-                                    ข้อมูลนักเรียน
-                                </h2>
-                                <div class="pa-3">
-                                    <v-row class="align-center row-border">
-                                        <v-col cols="3" class="text-center pa-0">
-                                            <v-icon style="color: #005BB9; font-size: 35px;"
-                                                icon="mdi-card-account-details" />
-                                        </v-col>
-                                        <v-col cols="9" class="pa-2">
-                                            <p class="FontDetail text-center">{{ stu.p_id || '-' }}</p>
-                                        </v-col>
-                                    </v-row>
-                                    <v-row class="align-center row-border">
-                                        <v-col cols="3" class="text-center pa-0">
-                                            <v-icon style="color: #005BB9; font-size: 35px;" icon="mdi-account" />
-                                        </v-col>
-                                        <v-col cols="9" class="pa-2">
-                                            <p class="text-center FontDetail">{{ cutPrefixName(stu.name) || '-' }}</p>
-                                        </v-col>
-                                    </v-row>
-                                    <v-row class="align-center">
-                                        <v-col cols="3" class="text-center pa-0">
-                                            <v-icon style="color: #43A047;font-size: 35px;" icon="mdi-clock-check" />
-                                        </v-col>
-                                        <v-col cols="9" class="pa-2">
-                                            <p class="text-center FontDetail">{{ extractTime(stu.time) || '-' }}</p>
-                                        </v-col>
-                                    </v-row>
+                                <div class="d-flex align-center justify-center">
+                                    <v-card variant="flat" class="card-second-shadow" style="width: 80%;">
+                                        <h2 class="text-center pa-1" style="background-color: #FE8329;color: white;">
+                                            ข้อมูลนักเรียน
+                                        </h2>
+                                        <div class="pa-3">
+                                            <v-row class="align-center row-border">
+                                                <v-col cols="3" class="text-center pa-0">
+                                                    <v-icon style="color: #005BB9; font-size: 35px;"
+                                                        icon="mdi-card-account-details" />
+                                                </v-col>
+                                                <v-col cols="9" class="pa-2">
+                                                    <p class="FontDetail text-center">{{ stu.p_id || '-' }}</p>
+                                                </v-col>
+                                            </v-row>
+                                            <v-row class="align-center row-border">
+                                                <v-col cols="3" class="text-center pa-0">
+                                                    <v-icon style="color: #005BB9; font-size: 35px;"
+                                                        icon="mdi-account" />
+                                                </v-col>
+                                                <v-col cols="9" class="pa-2">
+                                                    <p class="text-center FontDetail">{{ cutPrefixName(stu.name) || '-'
+                                                    }}
+                                                    </p>
+                                                </v-col>
+                                            </v-row>
+                                            <v-row class="align-center">
+                                                <v-col cols="3" class="text-center pa-0">
+                                                    <v-icon style="color: #43A047;font-size: 35px;"
+                                                        icon="mdi-clock-check" />
+                                                </v-col>
+                                                <v-col cols="9" class="pa-2">
+                                                    <p class="text-center FontDetail">{{ extractTime(stu.time) || '-' }}
+                                                    </p>
+                                                </v-col>
+                                            </v-row>
+                                        </div>
+                                    </v-card>
                                 </div>
-                            </v-card>
-                        </div>
 
-                    </v-col>
-                </v-row>
-            </v-card>
-        </div>
-
-        <div class="mt-5">
-            <v-card variant="flat" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 5px 29px 0px;">
-                <v-toolbar density="compact" color="white"
-                    style="border-top-left-radius: 4px;border-top-right-radius: 4px;">
-                    <h3 class="ml-5 d-flex align-center justify-start" style="color: #FE8329;">
-                        <v-icon icon="mdi-account" size="small" class="mr-2" style="color: #FE8329;"></v-icon>
-                        รายชื่อนักเรียน
-                    </h3>
-                    <v-spacer></v-spacer>
-                </v-toolbar>
-                <v-row class="text-center pa-3">
-                    <v-col v-for="student in data" :key="student._id">
-                        <img :src="student.img_name || '/profile_mockup.jpg'" alt="img" class="Imglist">
-
-                        <v-row class="align-center pa-2 pt-0">
-                            <v-col cols="4" class="text-center pa-0">
-                                <v-icon style="color: #005BB9; " icon="mdi-card-account-details" />
-                            </v-col>
-                            <v-col cols="8" class="pa-0 pt-2">
-                                <p class="d-flex align-center justify-center FontSub">
-                                    {{ student.p_id }}
-                                </p>
-                            </v-col>
-
-                            <v-col cols="4" class="text-center pa-0">
-                                <v-icon style="color: #43A047;" icon="mdi-clock-check" />
-                            </v-col>
-                            <v-col cols="8" class="pa-0">
-                                <p class="d-flex align-center justify-center FontSub">
-                                    {{ extractTime(student.time) }}
-                                </p>
                             </v-col>
                         </v-row>
+                    </v-card>
+                </div>
+
+                <div class="mt-3">
+                    <v-card variant="flat" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 5px 29px 0px;">
+                        <v-toolbar density="compact" color="white"
+                            style="border-top-left-radius: 4px;border-top-right-radius: 4px;">
+                            <h2 class="ml-5 d-flex align-center justify-start" style="color: #FE8329;">
+                                <v-icon icon="mdi-account" size="small" class="mr-2" style="color: #FE8329;"></v-icon>
+                                รายชื่อนักเรียน
+                            </h2>
+                            <v-spacer></v-spacer>
+                        </v-toolbar>
+                        <v-row class="text-center pa-3">
+                            <v-col v-for="student in data" :key="student._id">
+                                <img :src="student.img_name || '/profile_mockup.jpg'" alt="img" class="Imglist">
+
+                                <v-row class="align-center pa-2 pt-5">
+                                    <v-col cols="4" class="text-center pa-0">
+                                        <v-icon style="color: #005BB9; " icon="mdi-card-account-details" />
+                                    </v-col>
+                                    <v-col cols="8" class="pa-0 pt-2">
+                                        <p class="d-flex align-center justify-center FontSub">
+                                            {{ student.p_id || '-' }}
+                                        </p>
+                                    </v-col>
+
+                                    <v-col cols="4" class="text-center pa-0 py-2">
+                                        <v-icon style="color: #43A047;" icon="mdi-clock-check" />
+                                    </v-col>
+                                    <v-col cols="8" class="pa-0">
+                                        <p class="d-flex align-center justify-center FontSub">
+                                            {{ extractTime(student.time) || '-' }}
+                                        </p>
+                                    </v-col>
+                                </v-row>
 
 
-                        <!-- <p class="d-flex align-center justify-center FontSub">
+                                <!-- <p class="d-flex align-center justify-center FontSub">
                             <v-icon style="color: #005BB9;" icon="mdi-account" class="mr-3" />
                             {{ cutPrefixName(student.name) }}
 
                         </p> -->
-                        <!-- <p class="d-flex align-center justify-center FontSub">
+                                <!-- <p class="d-flex align-center justify-center FontSub">
                             <v-icon style="color: #43A047;" icon="mdi-clock-check" class="mr-3" />
                             {{ extractTime(student.time) }}
                         </p> -->
-                    </v-col>
-                </v-row>
-            </v-card>
-        </div>
+                            </v-col>
+                        </v-row>
+                    </v-card>
+                </div>
+            </v-col>
+            <v-col cols="2" class="pa-2 pl-0">
+                <v-card variant="flat" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 5px 29px 0px;">
+                    <v-toolbar density="compact" color="#EF5350"
+                        style="border-top-left-radius: 4px;border-top-right-radius: 4px;">
+                        <h3 class="ml-5 d-flex align-center justify-start" style="color: white;">
+                            <v-icon icon="mdi-account-cancel-outline" size="small" class="mr-2"
+                                style="color: white;"></v-icon>
+                            สแกนหน้าไม่สำเร็จ
+                        </h3>
+                    </v-toolbar>
+                    <div>
+                        <v-divider></v-divider>
+                        <v-col v-for="str in strangerData" :key="str.timeST" class="text-center pb-0">
+                            <div style="position: relative;">
+                                <p class="absolutePosition"><v-icon style="font-size: 40px;"
+                                        color="red">mdi-close-thick</v-icon>
+                                </p>
+                                <img :src="str.img_snap ? baseUrl + str.img_snap : '/profile_mockup.jpg'" alt="img"
+                                    class="ImgStr">
+                                <v-row class="pa-1 pt-0">
+                                    <v-col cols="6" class="text-end pr-1"><v-icon size="large"
+                                            color="orange">mdi-clock-alert</v-icon></v-col>
+                                    <v-col cols="6" class="text-start pl-1">
+                                        <p class="FontSub">
+                                            {{ extractTime(str.time) || '-' }}</p>
+                                    </v-col>
+                                </v-row>
+                                <v-divider></v-divider>
+                            </div>
+                        </v-col>
+                    </div>
+                </v-card>
+            </v-col>
+        </v-row>
     </div>
 </template>
 
@@ -132,12 +175,6 @@ export default {
     },
     data: () => ({
         studentData: [
-            {
-                Img: '/profile_mockup.jpg',
-                p_id: "",
-                name: "",
-                time: ""
-            },
             {
                 Img: '/profile_mockup.jpg',
                 p_id: "",
@@ -212,12 +249,6 @@ export default {
                 name: "",
                 timeST: ""
             },
-            {
-                Img: '/profile_mockup.jpg',
-                Id: "",
-                name: "",
-                timeST: ""
-            },
         ],
         serverTime: '',
         headers: [
@@ -235,7 +266,39 @@ export default {
         socketReconnectTimeout: null, // <- เพิ่มตัวนี้เพื่อใช้ clearTimeout
         isComponentAlive: true, // <- flag นี้ไว้เช็กว่า component ยังอยู่ไหม
         lastClearedHour: null,
-        clearInterval: null
+        clearInterval: null,
+        strangerData: [
+            {
+                Img: '/profile_mockup.jpg',
+                Id: "",
+                name: "",
+                timeST: ""
+            },
+            {
+                Img: '/profile_mockup.jpg',
+                Id: "",
+                name: "",
+                timeST: ""
+            },
+            {
+                Img: '/profile_mockup.jpg',
+                Id: "",
+                name: "",
+                timeST: ""
+            },
+            {
+                Img: '/profile_mockup.jpg',
+                Id: "",
+                name: "",
+                timeST: ""
+            },
+            {
+                Img: '/profile_mockup.jpg',
+                Id: "",
+                name: "",
+                timeST: ""
+            },
+        ],
     }),
     created() {
         setInterval(() => {
@@ -330,12 +393,12 @@ export default {
 
                 if (socketData.sn === this.deviceInfo.serialNumber) {
                     if (socketData.p_id !== 'STRANGERBABY') {
-                        if (this.studentData.length === 3) {
+                        if (this.studentData.length === 2) {
                             const removed = this.studentData.pop();
                             this.data.unshift(removed); // เพิ่มที่หน้าสุด
 
                             // จำกัดให้ data เก็บได้ไม่เกิน 10
-                            if (this.data.length > 10) {
+                            if (this.data.length > 8) {
                                 this.data.pop();
                             }
                         }
@@ -343,10 +406,17 @@ export default {
                         // ใส่ข้อมูลใหม่เข้า studentData
                         this.studentData.unshift(socketData);
 
-                        console.log('📌 studentData (ล่าสุด 3):', this.studentData);
-                        console.log('📦 data (ของเก่า ไม่เกิน 10):', this.data);
-                    } else {
-                        console.log('Stranger : ', socketData)
+                        console.log('📌 studentData (ล่าสุด 2):', this.studentData);
+                        console.log('📦 data (ของเก่า ไม่เกิน 8):', this.data);
+
+                    } else if (socketData.p_id === 'STRANGERBABY') {
+                        this.strangerData.unshift(socketData);
+
+                        // ตรวจสอบว่าเกิน 5 ไหม แล้วลบอันเก่าสุด
+                        if (this.strangerData.length > 5) {
+                            this.strangerData.length = 5; // ตัดให้เหลือ 5 ตัว (ลบท้ายออกอัตโนมัติ)
+                        }
+
                     }
                 }
             };
@@ -410,6 +480,7 @@ export default {
                         this.studentData.picture = null;
                         this.studentData.snapPicture = null;
                         this.lastClearedAt = clearTimestamp;
+                        this.strangerData = [];
                     }
                 }
 
@@ -485,15 +556,20 @@ export default {
     /* padding: 10px; */
     border-radius: 5px;
     width: 100%;
-    height: 350px;
+    height: 389px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
 }
 
 .Imglist {
     border-radius: 5px;
-    width: 120px;
-    height: 150px;
+    height: 140px;
+    margin-bottom: 5px;
+}
+
+.ImgStr {
+    border-radius: 5px;
+    height: 132px;
     margin-bottom: 5px;
 }
 
@@ -523,5 +599,11 @@ export default {
 
 .row-border {
     border-bottom: 1px solid #E0E0E0;
+}
+
+.absolutePosition {
+    position: absolute;
+    z-index: 10;
+    right: 80px;
 }
 </style>
