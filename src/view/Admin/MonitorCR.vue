@@ -139,7 +139,7 @@
                         <v-col v-for="str in strangerData" :key="str.timeST" class="text-center pb-0">
                             <div style="position: relative;">
                                 <p class="absolutePosition"><v-icon style="font-size: 40px;"
-                                        color="red">mdi-close-thick</v-icon>
+                                        color="red">mdi-face-recognition</v-icon>
                                 </p>
                                 <img :src="str.img_snap ? baseUrl + str.img_snap : '/profile_mockup.jpg'" alt="img"
                                     class="ImgStr">
@@ -605,6 +605,6 @@ export default {
 .absolutePosition {
     position: absolute;
     z-index: 10;
-    right: 80px;
+    right: 70px;
 }
 </style>
